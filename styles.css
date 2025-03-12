@@ -15,14 +15,18 @@ section {
 
 #main-container {
   display: flex;
+  flex-direction: column;
   /*flex-wrap: wrap;*/
   height: 500px;
   width: 350px;
   border: 10px solid black;
   border-radius: 15px;
+  padding: 20px;
 }
 
-div {
-  border: 1px solid black;
-  padding: 20px;
+#display {
+  border: 2px solid black;
+  height: 50px;
+  padding: 5px;
+  margin-bottom: 20px;
 }
