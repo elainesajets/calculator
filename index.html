@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="styles.css" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+
     <script src="main.js" defer></script>
   </head>
   <body>
@@ -15,29 +23,29 @@
           <div id="main-button-container">
             <div id="top-button-container">
               <button class="top-button">AC</button>
-              <button class="top-button">+/-</button>
+              <button class="operator-button">+/-</button>
               <button class="operator-button">%</button>
             </div>
             <div id="numbers">
-              <button class="number-button">.</button>
-              <button class="number-button">0</button>
-              <button class="number-button">1</button>
-              <button class="number-button">2</button>
-              <button class="number-button">3</button>
-              <button class="number-button">4</button>
-              <button class="number-button">5</button>
-              <button class="number-button">6</button>
-              <button class="number-button">7</button>
-              <button class="number-button">8</button>
-              <button class="number-button">9</button>
+              <button class="number-button" data-value="7">7</button>
+              <button class="number-button" data-value="8">8</button>
+              <button class="number-button" data-value="9">9</button>
+              <button class="number-button" data-value="4">4</button>
+              <button class="number-button" data-value="5">5</button>
+              <button class="number-button" data-value="6">6</button>
+              <button class="number-button" data-value="1">1</button>
+              <button class="number-button" data-value="2">2</button>
+              <button class="number-button" data-value="3">3</button>
+              <button class="number-button" data-value="0">0</button>
+              <button class="number-button" data-value=".">.</button>
             </div>
           </div>
           <div id="operator-button-container">
-            <button class="operator-button">÷</button>
-            <button class="operator-button">x</button>
-            <button class="operator-button">-</button>
-            <button class="operator-button">+</button>
-            <button class="operator-button">=</button>
+            <button class="operator-button" data-value="÷">÷</button>
+            <button class="operator-button" data-value="x">x</button>
+            <button class="operator-button" data-value="-">-</button>
+            <button class="operator-button" data-value="+">+</button>
+            <button class="operator-button" data-value="=">=</button>
           </div>
         </div>
       </div>
