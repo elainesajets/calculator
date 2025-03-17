@@ -18,34 +18,37 @@
   <body>
     <section>
       <div id="main-container">
-        <p id="display">0</p>
+        <div id="display-container">
+          <p id="history-display">0</p>
+          <p id="main-display">0</p>
+        </div>
         <div id="button-container">
           <div id="main-button-container">
             <div id="top-button-container">
-              <button class="top-button">AC</button>
+              <button class="top-button" data-key="Escape">AC</button>
               <button class="operator-button">+/-</button>
               <button class="operator-button">%</button>
             </div>
             <div id="numbers">
-              <button class="number-button" data-value="7">7</button>
-              <button class="number-button" data-value="8">8</button>
-              <button class="number-button" data-value="9">9</button>
-              <button class="number-button" data-value="4">4</button>
-              <button class="number-button" data-value="5">5</button>
-              <button class="number-button" data-value="6">6</button>
-              <button class="number-button" data-value="1">1</button>
-              <button class="number-button" data-value="2">2</button>
-              <button class="number-button" data-value="3">3</button>
-              <button class="number-button" data-value="0">0</button>
-              <button class="number-button" data-value=".">.</button>
+              <button class="number-button" data-key="Digit7">7</button>
+              <button class="number-button" data-key="Digit8">8</button>
+              <button class="number-button" data-key="Digit9">9</button>
+              <button class="number-button" data-key="Digit4">4</button>
+              <button class="number-button" data-key="Digit5">5</button>
+              <button class="number-button" data-key="Digit6">6</button>
+              <button class="number-button" data-key="Digit1">1</button>
+              <button class="number-button" data-key="Digit2">2</button>
+              <button class="number-button" data-key="Digit3">3</button>
+              <button class="number-button" data-key="Digit0">0</button>
+              <button class="number-button" data-key="NumpadDecimal">.</button>
             </div>
           </div>
           <div id="operator-button-container">
-            <button class="operator-button" data-value="÷">÷</button>
-            <button class="operator-button" data-value="x">x</button>
-            <button class="operator-button" data-value="-">-</button>
-            <button class="operator-button" data-value="+">+</button>
-            <button class="operator-button" data-value="=">=</button>
+            <button class="operator-button" data-key="Slash">÷</button>
+            <button class="operator-button" data-key="NumpadMultiply">x</button>
+            <button class="operator-button" data-key="NumpadSubtract">-</button>
+            <button class="operator-button" data-key="NumpadAdd">+</button>
+            <button class="operator-button" data-key="Enter">=</button>
           </div>
         </div>
       </div>
