@@ -6,8 +6,9 @@ The calculator has a fully interactive UI and supports both **mouse and keyboard
 
 ## Possible future fixes
 
-- Make +/- button functional
-- 🔁 Improve floating point precision
+- 🔢  Make +/- button functional
+- 🕰️ Add history display
+- 🎯 Improve floating point precision
 - 🔲 Handle very large numbers more gracefully
 - 🎨 Add dark mode
 
