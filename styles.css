@@ -8,14 +8,14 @@ body {
   background-color: #f5eeff;
 }
 
-section {
+#calculator {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
 
-#main-container {
+#container {
   display: flex;
   flex-direction: column;
   width: 350px;
@@ -40,9 +40,11 @@ section {
   flex: 0 0 100px;
   font-family: 'Orbitron', sans-serif;
   overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
 }
 
-#button-container {
+#buttons {
   display: flex;
   flex-direction: row;
   flex: 1;
@@ -51,7 +53,7 @@ section {
   height: 100%;
 }
 
-#main-button-container {
+#main-buttons {
   display: flex;
   flex-direction: column;
   flex: 3;
@@ -60,7 +62,7 @@ section {
   gap: 5px;
 }
 
-#top-button-container {
+#top-buttons {
   display: flex;
   flex-direction: row;
   gap: 5px;
@@ -69,7 +71,7 @@ section {
   height: auto;
 }
 
-#operator-button-container {
+#operator-buttons {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -102,19 +104,18 @@ button {
 }
 
 #numbers button:not([data-key='Digit0']):not([data-key='NumpadDecimal']),
-#top-button-container button,
-#operator-button-container button {
+#top-buttons button,
+#operator-buttons button {
   flex: 1 1 0;
   aspect-ratio: 1 / 1;
   height: auto;
 }
 
-#top-button-container button {
+#top-buttons button {
   flex: 1 1 calc(33.333333% - 5px);
 }
 
 /*Special cases*/
-
 button[data-key='Digit0'] {
   flex: 2 1 calc(66.666666% - 5px);
   height: auto;
@@ -126,7 +127,6 @@ button[data-key='NumpadDecimal'] {
 }
 
 /*Button colors*/
-
 .number-button {
   background-color: #fadadd;
   color: #4a3f60;

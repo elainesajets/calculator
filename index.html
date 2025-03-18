@@ -16,12 +16,12 @@
     <script src="main.js" defer></script>
   </head>
   <body>
-    <section>
-      <div id="main-container">
-        <p id="display">0</p>
-        <div id="button-container">
-          <div id="main-button-container">
-            <div id="top-button-container">
+    <main id="calculator">
+      <div id="container">
+        <div id="display">0</div>
+        <div id="buttons">
+          <div id="main-buttons">
+            <div id="top-buttons">
               <button class="top-button" data-key="Escape">AC</button>
               <button class="operator-button">+/-</button>
               <button class="operator-button">%</button>
@@ -37,10 +37,10 @@
               <button class="number-button" data-key="Digit2">2</button>
               <button class="number-button" data-key="Digit3">3</button>
               <button class="number-button" data-key="Digit0">0</button>
-              <button class="number-button" data-key="NumpadDecimal">.</button>
+              <button class="number-button" data-key="Period">.</button>
             </div>
           </div>
-          <div id="operator-button-container">
+          <div id="operator-buttons">
             <button class="operator-button" data-key="Slash">÷</button>
             <button class="operator-button" data-key="NumpadMultiply">x</button>
             <button class="operator-button" data-key="Minus">-</button>
@@ -49,6 +49,6 @@
           </div>
         </div>
       </div>
-    </section>
+    </main>
   </body>
 </html>

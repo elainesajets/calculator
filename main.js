@@ -23,7 +23,7 @@ function noInput() {
 }
 
 function clearAll() {
-  display.textContent = '';
+  display.textContent = '0';
   num1 = 0;
   num2 = 0;
   sum = 0;
@@ -35,9 +35,17 @@ function clearAll() {
     .querySelectorAll('.button-selected')
     .forEach((btn) => btn.classList.remove('button-selected'));
 
-  console.log(num1, num2, operator);
+  console.log('Cleared ->', {
+    num1,
+    num2,
+    sum,
+    operator,
+    clearOnNextInput,
+    resultDisplayed,
+  });
 }
 
+//Only one operator can be highlighted at the time. This function check is a button is highglighted, and removes the highlight accordingly.
 function deselectOperators() {
   document
     .querySelectorAll('.operator-button')
@@ -74,25 +82,17 @@ let num2 = 0;
 let operator = '';
 let sum = 0;
 let clearOnNextInput = false;
-//let operatorArr = ['+', '-', '*', 'x', '/', '÷', '%'];
-//let calculationArr = [0, '', 0];
+const MAX_DISPLAY_LENGTH = 10;
 
 const display = document.getElementById('display');
-const buttonContainer = document.getElementById('button-container');
+const buttonContainer = document.getElementById('buttons');
 
 buttonContainer.addEventListener('click', (e) => {
   const number = e.target.closest('.number-button');
-  console.log(e.target.textContent);
 
   if (!number) return;
 
-  if (
-    (noInput() === true && display.textContent === '0') ||
-    display.textContent === 'Try again!'
-  ) {
-    display.textContent = number.textContent;
-    return;
-  }
+  if (display.textContent.length > MAX_DISPLAY_LENGTH && !num1) return;
 
   if (number.textContent === '.') {
     if (display.textContent === '' || display.textContent === '0') {
@@ -103,24 +103,36 @@ buttonContainer.addEventListener('click', (e) => {
     return;
   }
 
+  if (
+    (noInput() && display.textContent === '0') ||
+    display.textContent === 'Try again!'
+  ) {
+    display.textContent = number.textContent;
+    return;
+  }
+
   if (clearOnNextInput) {
     display.textContent = '';
     clearOnNextInput = false;
     resultDisplayed = false;
   }
-  if (sum && num2) {
-    clearAll();
-  }
-  if (display.textContent === '0') {
-    display.textContent = number.textContent;
-  } else {
-    display.textContent += number.textContent;
-  }
+
+  //Starts a new calculation instead of appending more numbers
+  if (sum && num2) clearAll();
+
+  display.textContent === '0'
+    ? (display.textContent = number.textContent)
+    : (display.textContent += number.textContent);
 });
 
 buttonContainer.addEventListener('click', (e) => {
   const button = e.target.closest('.top-button');
   if (!button) return;
+
+  if (button.textContent === 'AC') {
+    clearAll();
+    return;
+  }
 
   deselectOperators();
 
@@ -131,8 +143,6 @@ buttonContainer.addEventListener('click', (e) => {
   }
 
   button.classList.toggle('button-selected');
-
-  if (button.textContent === 'AC') clearAll();
 });
 
 let resultDisplayed = false;
@@ -140,14 +150,11 @@ let resultDisplayed = false;
 buttonContainer.addEventListener('click', (e) => {
   const button = e.target.closest('.operator-button');
   if (!button) return;
-  if (!num1) {
-    num1 = Number(display.textContent);
-  } else {
-    num2 = Number(display.textContent);
-  }
-  //if (operator) operator = button.textContent;
 
-  //Check if operator button has been highlighted and behave accordingly
+  !num1
+    ? (num1 = Number(display.textContent))
+    : (num2 = Number(display.textContent));
+
   deselectOperators();
 
   if (operator && button.textContent !== '=') {
@@ -159,15 +166,22 @@ buttonContainer.addEventListener('click', (e) => {
   button.classList.toggle('button-selected');
 
   if (button.textContent === '=') {
-    if (!num1 || !num2 || !operator || (operator === '/' && num2 === 0)) {
-      clearAll();
+    const invalidCalculation =
+      !num1 || !num2 || !operator || (operator === '/' && num2 === 0);
+
+    if (invalidCalculation) {
       display.textContent = 'Try again!';
       return;
     }
 
     sum = operate(num1, num2, operator);
 
-    display.textContent = Number(sum.toFixed(8));
+    if (sum.toString().length > MAX_DISPLAY_LENGTH) {
+      display.textContent = `I'm just a basic calculator!`;
+    } else {
+      display.textContent = sum;
+    }
+
     num1 = sum;
     operator = '';
     resultDisplayed = true;
@@ -190,28 +204,17 @@ window.addEventListener('keydown', (e) => {
   const button = document.querySelector(`button[data-key="${key}"]`);
 
   if (!button) return;
-  if (e.code === 'Enter') {
-    e.preventDefault();
-  }
 
-  if (button.classList.contains('operator-button')) {
-    deselectOperators();
-
-    if (operator && button.textContent !== '=') {
-      operator = button.textContent;
-      button.classList.add('button-selected');
-      return;
-    }
-  }
-
-  if (button) button.click(); // Simulate a button click
+  button.click();
 });
 
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Backspace') {
     if (resultDisplayed) return;
-    if (display.textContent.length > 0 && !clearOnNextInput) {
+
+    if (display.textContent.length > 0 && !clearOnNextInput)
       display.textContent = display.textContent.slice(0, -1);
-    }
+    if (!display.textContent || display.textContent === '')
+      display.textContent = '0';
   }
 });
