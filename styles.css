@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #f8f4ff;
+  background-color: #f5eeff;
 }
 
 section {
@@ -101,7 +101,7 @@ button {
   aspect-ratio: 1 / 1;
 }
 
-#numbers button:not([data-value='0']):not([data-value='.']),
+#numbers button:not([data-key='Digit0']):not([data-key='NumpadDecimal']),
 #top-button-container button,
 #operator-button-container button {
   flex: 1 1 0;
@@ -115,13 +115,13 @@ button {
 
 /*Special cases*/
 
-button[data-value='0'] {
+button[data-key='Digit0'] {
   flex: 2 1 calc(66.666666% - 5px);
   height: auto;
   aspect-ratio: unset;
 }
 
-button[data-value='.'] {
+button[data-key='NumpadDecimal'] {
   flex: 1 1 calc(33.333333% - 5px);
 }
 

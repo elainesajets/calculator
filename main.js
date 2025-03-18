@@ -19,15 +19,17 @@ function modulo(a, b) {
 }
 
 function noInput() {
-  return num1 === 0 && num2 === 0 && sum === 0 && operator === '';
+  return !num1 && !num2 && !sum && operator === '';
 }
 
 function clearAll() {
   display.textContent = '';
   num1 = 0;
   num2 = 0;
+  sum = 0;
   operator = '';
   clearOnNextInput = false;
+  resultDisplayed = false;
 
   document
     .querySelectorAll('.button-selected')
@@ -80,20 +82,40 @@ const buttonContainer = document.getElementById('button-container');
 
 buttonContainer.addEventListener('click', (e) => {
   const number = e.target.closest('.number-button');
+  console.log(e.target.textContent);
+
   if (!number) return;
-  if (noInput() === true && display.textContent === '0') {
+
+  if (
+    (noInput() === true && display.textContent === '0') ||
+    display.textContent === 'Try again!'
+  ) {
     display.textContent = number.textContent;
     return;
   }
-  if (display.textContent.includes('.') && number.textContent === '.') return;
+
+  if (number.textContent === '.') {
+    if (display.textContent === '' || display.textContent === '0') {
+      display.textContent = '0.';
+    } else if (!display.textContent.includes('.')) {
+      display.textContent += '.';
+    }
+    return;
+  }
+
   if (clearOnNextInput) {
     display.textContent = '';
     clearOnNextInput = false;
+    resultDisplayed = false;
   }
   if (sum && num2) {
     clearAll();
   }
-  display.textContent += number.textContent;
+  if (display.textContent === '0') {
+    display.textContent = number.textContent;
+  } else {
+    display.textContent += number.textContent;
+  }
 });
 
 buttonContainer.addEventListener('click', (e) => {
@@ -101,40 +123,95 @@ buttonContainer.addEventListener('click', (e) => {
   if (!button) return;
 
   deselectOperators();
+
+  if (operator && button.textContent !== '=') {
+    operator = button.textContent;
+    button.classList.add('button-selected');
+    return;
+  }
+
   button.classList.toggle('button-selected');
 
   if (button.textContent === 'AC') clearAll();
 });
 
+let resultDisplayed = false;
+
 buttonContainer.addEventListener('click', (e) => {
   const button = e.target.closest('.operator-button');
   if (!button) return;
-  if (!num1) num1 = Number(display.textContent);
-  if (!num2) num2 = Number(display.textContent);
+  if (!num1) {
+    num1 = Number(display.textContent);
+  } else {
+    num2 = Number(display.textContent);
+  }
+  //if (operator) operator = button.textContent;
 
   //Check if operator button has been highlighted and behave accordingly
   deselectOperators();
+
+  if (operator && button.textContent !== '=') {
+    operator = button.textContent;
+    button.classList.add('button-selected');
+    return;
+  }
+
   button.classList.toggle('button-selected');
 
   if (button.textContent === '=') {
-    if (!num1 || !num2 || !operator) {
-      console.log('<Missing input');
+    if (!num1 || !num2 || !operator || (operator === '/' && num2 === 0)) {
+      clearAll();
+      display.textContent = 'Try again!';
       return;
     }
 
-    checkAll(); //Debugging
     sum = operate(num1, num2, operator);
-    display.textContent = sum.toFixed(8);
+
+    display.textContent = Number(sum.toFixed(8));
     num1 = sum;
-    checkAll(); //Debugging
     operator = '';
+    resultDisplayed = true;
     return;
   } else {
     operator = button.textContent;
-    //display.textContent = operator;
     num2 = 0;
-    console.log(`${num1} ${operator}`);
-
     clearOnNextInput = true;
+  }
+});
+
+window.addEventListener('keydown', (e) => {
+  let key = e.code;
+
+  if (e.shiftKey) {
+    if (e.code === 'Equal') key = 'NumpadAdd';
+    if (e.code === 'Digit8') key = 'NumpadMultiply';
+  }
+
+  const button = document.querySelector(`button[data-key="${key}"]`);
+
+  if (!button) return;
+  if (e.code === 'Enter') {
+    e.preventDefault();
+  }
+
+  if (button.classList.contains('operator-button')) {
+    deselectOperators();
+
+    if (operator && button.textContent !== '=') {
+      operator = button.textContent;
+      button.classList.add('button-selected');
+      return;
+    }
+  }
+
+  if (button) button.click(); // Simulate a button click
+});
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Backspace') {
+    if (resultDisplayed) return;
+    if (display.textContent.length > 0 && !clearOnNextInput) {
+      display.textContent = display.textContent.slice(0, -1);
+    }
   }
 });
