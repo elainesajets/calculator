@@ -36,7 +36,7 @@ function clearAll() {
     .forEach((btn) => btn.classList.remove('button-selected'));
 }
 
-//Only one operator can be highlighted at the time. This function check is a button is highglighted, and removes the highlight accordingly.
+//Only one operator can be highlighted at the time. This function check is a button is highlighted, and removes the highlight accordingly.
 function deselectOperators() {
   document
     .querySelectorAll('.operator-button')
