@@ -34,15 +34,6 @@ function clearAll() {
   document
     .querySelectorAll('.button-selected')
     .forEach((btn) => btn.classList.remove('button-selected'));
-
-  console.log('Cleared ->', {
-    num1,
-    num2,
-    sum,
-    operator,
-    clearOnNextInput,
-    resultDisplayed,
-  });
 }
 
 //Only one operator can be highlighted at the time. This function check is a button is highglighted, and removes the highlight accordingly.
