@@ -170,7 +170,7 @@ buttonContainer.addEventListener('click', (e) => {
       !num1 || !num2 || !operator || (operator === '/' && num2 === 0);
 
     if (invalidCalculation) {
-      display.textContent = 'Try again!';
+      //display.textContent = 'Try again!';
       return;
     }
 
